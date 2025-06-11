@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/styles/styleTimer.css">
+  <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
+
+  <title>Temp</title>
+
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Timer</h1>
+
+      <input id="check" type="checkbox">
+      <label id="icon" for="check">
+        <img src="/img/menu.png">
+      </label>
+
+        <div class="barra">
+          <nav>
+            <a class="link" href="/index.html">Voltar</a>
+            <a class="link" onclick="mudaCor()">Tema</a>
+            <a class="link">
+              <p id="themeImage">
+                <input id="image" type="file" name="image" accept="image/png, image/jpeg"/>
+              </p>
+            </a>
+          </nav>
+        </div>
+    </header>
+
+    <main>
+      <div class="styleTimes">
+        <span id="daysTime">00</span>
+        <span id="hoursTime">00</span>
+        <span id="minutsTime">00</span> 
+        <span id="secondsTime">00</span> 
+      </div>
+
+      <div id="buttons">
+        <button id="start" onclick="start()">START</button>
+          <strong></strong>
+        <button id="stop" onclick="stop()">STOP</button>
+          <strong></strong>
+        <button id="restart" onclick="location.reload()">RESTART</button>
+      </div>
+    </main>
+
+    <footer>
+      <div id="copy">
+        <p>© Copyright - Lucas Fernandes</p>
+  
+        <a id="cg" href="https://github.com/lucas-fernandes" target="_blank">GitHub</a>
+          <strong>|</strong> 
+        <a id="cl" href="https://www.linkedin.com/in/lucas-fernandes-223a18165/" target="_blank">Linkedin</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="http://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+  <script src="/scripts/scriptTimer.js"></script>
+</body>
+
+</html>
