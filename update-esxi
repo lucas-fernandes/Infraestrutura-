@@ -1,0 +1,113 @@
+🛠️ Documento Técnico: Atualização Massiva de Servidores ESXi via Ansible
+Autor: Eng. Sênior DevOps
+Data: 11/06/2025
+Versão: 1.0
+Ambiente: VMware vSphere ESXi 7/8
+Ferramenta: Ansible
+
+📋 Objetivo
+Automatizar o processo de atualização de múltiplos servidores VMware ESXi utilizando Ansible, reduzindo riscos de falhas manuais e garantindo consistência entre os hosts.
+
+🧱 Requisitos
+Ansible Controller
+Ansible 2.10+ instalado
+
+Acesso à rede dos hosts ESXi
+
+Diretório de projeto com os arquivos necessários
+
+Hosts ESXi
+Acesso SSH habilitado temporariamente
+
+Shell habilitado
+
+SCP habilitado
+
+Usuário com permissões de root
+
+Datastore acessível (/vmfs/volumes/datastore1)
+
+Patch Bundle
+Arquivo .zip do tipo offline bundle
+
+Exemplo: VMware-ESXi-8.0.1-XXXXXX-depot.zip
+
+🗂️ Estrutura do Projeto
+esxi_update_ansible/
+├── hosts                      # Inventário Ansible
+├── playbook.yml               # Playbook principal
+└── files/
+    └── VMware-ESXi-8.0.1-XXXXXX-depot.zip   # Patch ESXi
+🧾 Inventário (hosts)
+ini
+Copiar
+Editar
+[esxi_hosts]
+esxi-host01 ansible_host=192.168.1.101
+esxi-host02 ansible_host=192.168.1.102
+esxi-host03 ansible_host=192.168.1.103
+
+[esxi_hosts:vars]
+ansible_user=root
+ansible_password=SuaSenhaAqui
+ansible_connection=ssh
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+▶️ Playbook (playbook.yml)
+Resumo das etapas realizadas:
+
+Habilita SSH no host.
+
+Cria diretório para update.
+
+Copia o patch para o host.
+
+Executa esxcli software vib update.
+
+Reinicia o host.
+
+Aguarda o host voltar (checa via SSH).
+
+Desabilita SSH (opcional).
+
+💻 Execução
+Para iniciar o processo de atualização, execute:
+
+bash
+Copiar
+Editar
+ansible-playbook -i hosts playbook.yml
+Recomenda-se executar primeiro em um host de homologação.
+
+📌 Considerações Importantes
+Backup obrigatório das VMs ou snapshots antes de aplicar o patch.
+
+SSH deve estar habilitado previamente ou via PowerCLI/API.
+
+O processo reinicia os hosts — garanta que as VMs estejam migradas ou desligadas.
+
+Use junto com vCenter DRS ou scripts que coloquem o host em modo de manutenção.
+
+Testado em ESXi 7.0U3 e ESXi 8.0.1.
+
+📤 Logs e Auditoria
+Os logs da execução do playbook podem ser salvos com:
+
+bash
+Copiar
+Editar
+ansible-playbook -i hosts playbook.yml | tee update-log-$(date +%F).log
+📎 Anexos
+ Patch: files/VMware-ESXi-8.0.1-XXXXXX-depot.zip
+
+ Arquivo de inventário: hosts
+
+ Playbook Ansible: playbook.yml
+
+📞 Suporte
+Em caso de falhas ou dúvidas:
+
+Slack: #infraestrutura-devops
+
+Email: devops@empresa.com
+
+Documentação VMware: https://kb.vmware.com
